@@ -56,11 +56,6 @@ public class ManejoDeAtaque : AtributosPersonaje
         // Usamos 'this.EstaAtacando'
         this.EstaAtacando = false;
 
-        // Desactiva el Collider 
-        /*if (attackCollider != null)
-        {
-            attackCollider.enabled = false;
-        }*/
     }
 
     private void OnCollisionEnter(Collision other)
