@@ -14,7 +14,7 @@ public class NavMeshPrueba : MonoBehaviour
     public float tiempoEspera = 10;
     public float quieto = 10;
 
-    bool esperando = false;
+    //bool esperando = false;
 
     void Start()
     {

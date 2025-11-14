@@ -88,4 +88,27 @@ public class AtributosPersonaje : MonoBehaviour
 
         Debug.Log($"Atributos del personaje actualizados: Daño={this.daño}, Cooldown={this.cooldown}, Rango={this.rango}");
     }
+
+    public void RecibirCuracion(int cantidad)
+    {
+        // 1. Calcula la nueva vida, asegurando que no exceda la VidaMaxima
+        VidaActual += cantidad;
+        VidaActual = Mathf.Min(VidaActual, VidaMaxima); // Mathf.Min evita que la vida exceda el máximo
+
+        Debug.Log(gameObject.name + " se curó " + cantidad + ". Vida actual: " + VidaActual);
+
+        // 2. Actualiza la barra de vida
+        if (barraDeVida != null)
+        {
+            ActualizarBarra();
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("BalaEnemigo"))
+        {
+            RecibirDano(50);
+        }
+    }
 }

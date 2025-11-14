@@ -7,6 +7,7 @@ TagManager:
   - Moneda
   - Enemigo
   - Puerta
+  - BalaEnemigo
   layers:
   - Default
   - TransparentFX

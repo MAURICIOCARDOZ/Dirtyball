@@ -27,9 +27,9 @@ public class Escapar : MonoBehaviour
             Debug.Log(gameObject.name + " ha atravesado la puerta! Escapando...");
             Destroy(gameObject);
             Time.timeScale = 0f;
-            if (FindObjectOfType<ControladorUI>() != null)
+            if (FindFirstObjectByType<ControladorUI>() != null)
             {
-                FindObjectOfType<ControladorUI>().MostrarCanvasGanar();
+                FindFirstObjectByType<ControladorUI>().MostrarCanvasGanar();
             }
         }
     }
