@@ -14,7 +14,7 @@ public class SpawnEnemies : MonoBehaviour
         for (int i = 0; i < enemiesToSpawn; i++)
         {
         float xzRPosition = Random.Range(-xzLimites, xzLimites);
-        Vector3 randomSpawn = new Vector3(xzRPosition, 1.99f, xzRPosition);
+        Vector3 randomSpawn = new Vector3(xzRPosition, 3.99f, xzRPosition);
             Instantiate(enemy, randomSpawn, enemy.transform.rotation);
         }
     }

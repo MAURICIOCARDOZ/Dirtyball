@@ -28,9 +28,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 		Vector3 m_CapsuleCenter;
 		CapsuleCollider m_Capsule;
 		bool m_Crouching;
+        private int m_ExclusionLayers;
 
 
-		void Start()
+        void Start()
 		{
 			m_Animator = GetComponent<Animator>();
 			m_Rigidbody = GetComponent<Rigidbody>();
@@ -40,7 +41,22 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
 			m_Rigidbody.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
 			m_OrigGroundCheckDistance = m_GroundCheckDistance;
-		}
+
+            int navMeshLayer = LayerMask.NameToLayer("NavMesh");
+
+            if (navMeshLayer == -1)
+            {
+                Debug.LogError("La capa 'NavMesh' no existe. El personaje puede agacharse incorrectamente.");
+                // Si no existe, usamos todas las capas excepto la predeterminada "Default" (Layer 0)
+                // O simplemente lo dejamos como estaba para no introducir nuevos errores.
+                m_ExclusionLayers = Physics.AllLayers;
+            }
+            else
+            {
+                // El código de exclusión que ya pusiste
+                m_ExclusionLayers = ~(1 << navMeshLayer);
+            }
+        }
 
 
 		public void Move(Vector3 move, bool crouch, bool jump)
@@ -89,7 +105,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			{
 				Ray crouchRay = new Ray(m_Rigidbody.position + Vector3.up * m_Capsule.radius * k_Half, Vector3.up);
 				float crouchRayLength = m_CapsuleHeight - m_Capsule.radius * k_Half;
-				if (Physics.SphereCast(crouchRay, m_Capsule.radius * k_Half, crouchRayLength, Physics.AllLayers, QueryTriggerInteraction.Ignore))
+				if (Physics.SphereCast(crouchRay, m_Capsule.radius * k_Half, crouchRayLength, m_ExclusionLayers, QueryTriggerInteraction.Ignore))
 				{
 					m_Crouching = true;
 					return;
@@ -107,7 +123,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			{
 				Ray crouchRay = new Ray(m_Rigidbody.position + Vector3.up * m_Capsule.radius * k_Half, Vector3.up);
 				float crouchRayLength = m_CapsuleHeight - m_Capsule.radius * k_Half;
-				if (Physics.SphereCast(crouchRay, m_Capsule.radius * k_Half, crouchRayLength, Physics.AllLayers, QueryTriggerInteraction.Ignore))
+				if (Physics.SphereCast(crouchRay, m_Capsule.radius * k_Half, crouchRayLength, m_ExclusionLayers, QueryTriggerInteraction.Ignore))
 				{
 					m_Crouching = true;
 				}

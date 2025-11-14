@@ -1,21 +1,18 @@
 using System;
 using UnityEngine;
 
-public class AtributosEnemigoBase : MonoBehaviour
+public class COPIAtributosEnemigo : MonoBehaviour
 {
     public int VidaActual = 100;
-    public int VidaMaxima = 100; // Es √∫til tener un m√°ximo
+    public int VidaMaxima = 100; // Es ˙til tener un m·ximo
     public int Salto = 5;
-    public int da√±o = 1;
+    public int daÒo = 1;
     public float cooldown = 1f;
 
     public Animator animator;
     public GameObject[] armas;
-    
-    public Vector3 PosicionLocalArma = new Vector3(0.5f, 1.0f, 0.2f);
 
-    [Tooltip("El Empty/Socket en la mano donde se adjuntar√°n las armas.")]
-    public Transform HandSocket;
+
 
 
     //Tomar la clase de Barra de vida
@@ -27,12 +24,12 @@ public class AtributosEnemigoBase : MonoBehaviour
         //Setear el indice del arma
         if (armas == null || armas.Length == 0)
         {
-            Debug.LogWarning(gameObject.name + ": La lista de armas est√° vac√≠a.");
+            Debug.LogWarning(gameObject.name + ": La lista de armas est· vacÌa.");
             return;
         }
         else
         {
-            // 2. Selecciona un √≠ndice aleatorio
+            // 2. Selecciona un Ìndice aleatorio
             int indiceAleatorio = UnityEngine.Random.Range(0, armas.Length);
             setearArma(indiceAleatorio);
         }
@@ -44,7 +41,7 @@ public class AtributosEnemigoBase : MonoBehaviour
         // Limita la vida para que no baje de 0
         VidaActual = Mathf.Max(VidaActual, 0);
 
-        Debug.Log(gameObject.name + " recibi√≥ " + dano + ". Vida restante: " + VidaActual);
+        Debug.Log(gameObject.name + " recibiÛ " + dano + ". Vida restante: " + VidaActual);
 
         if (VidaActual <= 0)
         {
@@ -55,7 +52,7 @@ public class AtributosEnemigoBase : MonoBehaviour
     public void Morir_enemigo()
     {
         Debug.Log(gameObject.name + " ha muerto.");
-        // Destruye el objeto al que est√° adjunto este script
+        // Destruye el objeto al que est· adjunto este script
         Destroy(gameObject);
 
     }
@@ -65,11 +62,11 @@ public class AtributosEnemigoBase : MonoBehaviour
         GameObject armaPrefab = armas[indiceArma];
 
         // 4. Instancia el arma como hijo del enemigo
-        // Opcional: Esto asume que las armas no est√°n ya en la escena y se deben generar.
-        GameObject nuevaArmaGO = Instantiate(armaPrefab, HandSocket);
+        // Opcional: Esto asume que las armas no est·n ya en la escena y se deben generar.
+        GameObject nuevaArmaGO = Instantiate(armaPrefab, transform);
 
-        // Configura la posici√≥n y rotaci√≥n si es necesario (ej: nuevaArmaGO.transform.localPosition = Vector3.zero;)
-        nuevaArmaGO.transform.localPosition = PosicionLocalArma;
+        // Configura la posiciÛn y rotaciÛn si es necesario (ej: nuevaArmaGO.transform.localPosition = Vector3.zero;)
+
 
         // 5. Obtiene el script AtributosArma de la nueva arma
         ArmasClase atributosArma = nuevaArmaGO.GetComponent<ArmasClase>();
@@ -77,9 +74,9 @@ public class AtributosEnemigoBase : MonoBehaviour
         if (atributosArma != null)
         {
             Debug.Log("HUBI ARMA");
-            Debug.Log(atributosArma.da√±o);
-            // 6. Asigna el da√±o del arma a la variable del enemigo
-            this.da√±o = atributosArma.da√±o; // Asigna el da√±o del arma a la variable 'da√±o' del enemigo
+            Debug.Log(atributosArma.daÒo);
+            // 6. Asigna el daÒo del arma a la variable del enemigo
+            this.daÒo = atributosArma.daÒo; // Asigna el daÒo del arma a la variable 'daÒo' del enemigo
             nuevaArmaGO.SetActive(true);
 
         }
