@@ -90,9 +90,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 			// send input and other state parameters to the animator
 			UpdateAnimator(move);
 		}
+        // Añade esta función al final del script ThirdPersonCharacter.cs
 
 
-		void ScaleCapsuleForCrouching(bool crouch)
+        void ScaleCapsuleForCrouching(bool crouch)
 		{
 			if (m_IsGrounded && crouch)
 			{
