@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-
+/*
 public class Teleporter : MonoBehaviour
 {
     [Header("1. Destino y Referencias")]
@@ -72,4 +72,4 @@ public class Teleporter : MonoBehaviour
 
         isTeleporting = false;
     }
-}
+}*/
