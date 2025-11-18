@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.UI; // ¡Necesario para usar el componente Image de la barra de carga!
+using UnityEngine.UI; 
 
 public class ItemCuracion : MonoBehaviour
 {
@@ -17,25 +17,38 @@ public class ItemCuracion : MonoBehaviour
     public float espera = 0f; 
     public bool disponible = false; 
     public float tiempoMaximoEspera = 30f;
+    
+    // --- VARIABLES DE DESBLOQUEO Y CUCHILLO ---
+    [Header("Mecánica de Desbloqueo (Cuchillo)")]
+    [Tooltip("El contador de veces que el cronómetro llegó a 0.")]
+    public int contadorActivaciones = 0; 
+    public const int ACTIVACIONES_REQUERIDAS = 5; 
+
+    [Tooltip("El GameObject que debe activarse cuando el cuchillo está disponible (ej: el ícono del Power-up).")]
+    public GameObject objetoCuchilloParaActivar; // Se usa su estado activo como el booleano 'cuchillo'
 
     // --- Configuración de UI ---
     [Header("Configuración de UI")]
-    [Tooltip("El GameObject del mensaje de aviso.")]
+    [Tooltip("El GameObject del mensaje de aviso regular de curación.")]
     public GameObject avisoDisponibleUI; 
     
+    [Tooltip("El GameObject del mensaje de aviso cuando el CUCHILLO se desbloquea.")]
+    public GameObject avisoCuchilloDesbloqueadoUI; 
+    
     [Tooltip("El componente Image de la barra de carga (Tipo: Filled).")]
-    public Image barraDeCarga; // <-- ¡REINSERTADA!
+    public Image barraDeCarga; 
 
-    private const float TIEMPO_VISIBILIDAD_AVISO = 3f; // 3 segundos
+    private const float TIEMPO_VISIBILIDAD_AVISO = 3f; 
 
     
     void Start()
     {
-        // Ocultar el aviso y la barra al inicio
-        if (avisoDisponibleUI != null)
-        {
-            avisoDisponibleUI.SetActive(false);
-        }
+        // Ocultar todos los elementos de UI y el objeto del cuchillo al inicio.
+        if (avisoDisponibleUI != null) avisoDisponibleUI.SetActive(false);
+        if (avisoCuchilloDesbloqueadoUI != null) avisoCuchilloDesbloqueadoUI.SetActive(false);
+        
+        // Desactivar el GameObject del cuchillo al inicio
+        if (objetoCuchilloParaActivar != null) objetoCuchilloParaActivar.SetActive(false); 
         
         if (barraDeCarga != null)
         {
@@ -45,7 +58,7 @@ public class ItemCuracion : MonoBehaviour
     }
 
 
-    // --- 1. Manejo del Temporizador y Lógica de UI ---
+    // --- 1. Manejo del Temporizador y Lógica de UI (MODIFICADO) ---
 
     private void Update()
     {
@@ -67,7 +80,27 @@ public class ItemCuracion : MonoBehaviour
                 if (!disponible) 
                 {
                     disponible = true;
-                    Debug.Log("¡MEJORA DISPONIBLE! Presiona Q para consumir.");
+                    contadorActivaciones++; 
+                    
+                    GameObject avisoAMostrar = avisoDisponibleUI; 
+
+                    // --- LÓGICA DE CONTADOR Y DESBLOQUEO ---
+                    if (contadorActivaciones == ACTIVACIONES_REQUERIDAS)
+                    {
+                        avisoAMostrar = avisoCuchilloDesbloqueadoUI; 
+                        
+                        // ¡ACTIVACIÓN DEL GAMEOBJECT CUCHILLO!
+                        if (objetoCuchilloParaActivar != null)
+                        {
+                            objetoCuchilloParaActivar.SetActive(true); // <-- ACTIVACIÓN
+                        }
+
+                        Debug.Log("¡CUCHILLO DESBLOQUEADO! Puedes usar el power-up.");
+                        contadorActivaciones = 0; 
+                    }
+                    
+                    Debug.Log($"Cronómetro completado. Contador: {contadorActivaciones}/{ACTIVACIONES_REQUERIDAS}");
+                    // --- FIN LÓGICA NUEVA ---
                     
                     // La barra de carga se queda llena (100%)
                     if (barraDeCarga != null)
@@ -76,11 +109,11 @@ public class ItemCuracion : MonoBehaviour
                         barraDeCarga.gameObject.SetActive(true);
                     }
 
-                    // Muestra el aviso instantáneamente y comienza la Corutina de 3 segundos
-                    if (avisoDisponibleUI != null)
+                    // Muestra el aviso seleccionado
+                    if (avisoAMostrar != null)
                     {
                         StopAllCoroutines(); 
-                        StartCoroutine(MostrarAvisoPorTiempo(TIEMPO_VISIBILIDAD_AVISO)); 
+                        StartCoroutine(MostrarAvisoPorTiempo(avisoAMostrar, TIEMPO_VISIBILIDAD_AVISO)); 
                     }
                 }
             }
@@ -98,38 +131,49 @@ public class ItemCuracion : MonoBehaviour
     }
 
 
-    // --- 2. Lógica de Activación/Uso y Reinicio ---
+    // --- 2. Lógica de Activación/Uso y Reinicio (MODIFICADO) ---
 
     private void ActivarOUsarMejora()
     {
-        // 1. Estado de Bloqueo (Cronómetro activo)
+        // 1. CONDICIÓN PRINCIPAL DE EVALUACIÓN (USO DEL CUCHILLO)
+        // Se comprueba si el GameObject del cuchillo está activo.
+        if (objetoCuchilloParaActivar != null && objetoCuchilloParaActivar.activeSelf)
+        {
+            // ¡DESACTIVACIÓN DEL GAMEOBJECT CUCHILLO AL USARLO!
+            objetoCuchilloParaActivar.SetActive(false); // <-- DESACTIVACIÓN
+            
+            Debug.Log("Power-up 'Cuchillo' desactivado. (Usado)");
+            
+            // Ocultar avisos
+            if (avisoDisponibleUI != null) avisoDisponibleUI.SetActive(false);
+            if (avisoCuchilloDesbloqueadoUI != null) avisoCuchilloDesbloqueadoUI.SetActive(false);
+            
+            // Aquí iría el código de ataque o efecto del cuchillo
+            return; 
+        }
+
+        // 2. RESTO DE LA LÓGICA (Curación y Reinicio)
+        
+        // 2.1. Estado de Bloqueo (Cronómetro activo)
         if (espera > 0f)
         {
             Debug.Log("¡ESPERAAAAA! El cronómetro sigue corriendo.");
             
-            // Si el cronómetro está corriendo, oculta el aviso inmediatamente
-            if (avisoDisponibleUI != null)
-            {
-                StopAllCoroutines();
-                avisoDisponibleUI.SetActive(false);
-            }
+            if (avisoDisponibleUI != null) avisoDisponibleUI.SetActive(false);
+            if (avisoCuchilloDesbloqueadoUI != null) avisoCuchilloDesbloqueadoUI.SetActive(false);
+            
             return;
         }
 
-        // --- Estado cuando 'espera' es 0 ---
-        
-        // 2. Estado de Consumo (Mejora disponible)
+        // 2.2. Estado de Consumo (Mejora disponible)
         if (disponible)
         {
             AplicarCuracion(atributosJugadorActual); 
             disponible = false;
             
-            // Ocultar el aviso
-            if (avisoDisponibleUI != null)
-            {
-                StopAllCoroutines();
-                avisoDisponibleUI.SetActive(false);
-            }
+            // Ocultar AMBOS avisos
+            if (avisoDisponibleUI != null) avisoDisponibleUI.SetActive(false);
+            if (avisoCuchilloDesbloqueadoUI != null) avisoCuchilloDesbloqueadoUI.SetActive(false);
             
             // Ocultar y vaciar la barra al consumir
             if (barraDeCarga != null)
@@ -141,7 +185,7 @@ public class ItemCuracion : MonoBehaviour
             Debug.Log("Mejora consumida. Presiona Q de nuevo para reiniciar el cronómetro.");
         }
         
-        // 3. Estado de Reinicio/Activación (No disponible y espera = 0)
+        // 2.3. Estado de Reinicio/Activación (No disponible y espera = 0)
         else 
         {
             espera = tiempoMaximoEspera;
@@ -160,25 +204,22 @@ public class ItemCuracion : MonoBehaviour
 
     // --- 3. Corutina para Mostrar/Ocultar el aviso ---
     
-    IEnumerator MostrarAvisoPorTiempo(float duracion)
+    IEnumerator MostrarAvisoPorTiempo(GameObject aviso, float duracion)
     {
-        if (avisoDisponibleUI != null)
+        if (aviso != null)
         {
-            // 1. Aparece instantáneamente
-            avisoDisponibleUI.SetActive(true);
-            
-            // 2. Espera el tiempo especificado
+            aviso.SetActive(true);
             yield return new WaitForSeconds(duracion);
             
-            // 3. Desaparece instantáneamente (solo si la mejora no fue consumida)
-            if (avisoDisponibleUI != null && disponible)
+            // Solo desactiva si el objeto actual aún está disponible
+            if (aviso != null && disponible)
             {
-                avisoDisponibleUI.SetActive(false);
+                aviso.SetActive(false);
             }
         }
     }
 
-    // --- 4. Métodos de Colisión y Curación ---
+    // --- 4. Métodos de Colisión y Curación (SIN CAMBIOS) ---
     
     private void OnTriggerEnter(Collider other)
     {
