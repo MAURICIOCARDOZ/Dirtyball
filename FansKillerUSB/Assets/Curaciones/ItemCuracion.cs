@@ -1,44 +1,211 @@
 using UnityEngine;
+using System.Collections;
+using UnityEngine.UI; // ¡Necesario para usar el componente Image de la barra de carga!
 
 public class ItemCuracion : MonoBehaviour
 {
-    // Esta es la variable pública que verás en el Inspector
+    // --- Configuración de Curación ---
     [Header("Configuración de Curación")]
-    [Tooltip("Cantidad de puntos de vida que se restaurarán al jugador.")]
     public int cantidadDeCuracion = 25; 
 
     private const string PlayerTag = "Player";
+    private bool jugadorEstaDentro = false;
+    private AtributosPersonaje atributosJugadorActual;
+
+    // --- Variables de Lógica de Mejora (Buff) ---
+    [Header("Lógica de Mejora (Buff)")]
+    public float espera = 0f; 
+    public bool disponible = false; 
+    public float tiempoMaximoEspera = 30f;
+
+    // --- Configuración de UI ---
+    [Header("Configuración de UI")]
+    [Tooltip("El GameObject del mensaje de aviso.")]
+    public GameObject avisoDisponibleUI; 
+    
+    [Tooltip("El componente Image de la barra de carga (Tipo: Filled).")]
+    public Image barraDeCarga; // <-- ¡REINSERTADA!
+
+    private const float TIEMPO_VISIBILIDAD_AVISO = 3f; // 3 segundos
+
+    
+    void Start()
+    {
+        // Ocultar el aviso y la barra al inicio
+        if (avisoDisponibleUI != null)
+        {
+            avisoDisponibleUI.SetActive(false);
+        }
+        
+        if (barraDeCarga != null)
+        {
+            barraDeCarga.fillAmount = 0f;
+            barraDeCarga.gameObject.SetActive(false);
+        }
+    }
 
 
-    // Se llama cuando el Collider (marcado como Trigger) de este objeto es atravesado por otro Collider.
+    // --- 1. Manejo del Temporizador y Lógica de UI ---
+
+    private void Update()
+    {
+        if (espera > 0f)
+        {
+            espera -= Time.deltaTime; 
+            
+            // Actualización de la barra de carga 
+            if (barraDeCarga != null)
+            {
+                barraDeCarga.fillAmount = 1f - (espera / tiempoMaximoEspera);
+                barraDeCarga.gameObject.SetActive(true);
+            }
+
+            if (espera <= 0f)
+            {
+                espera = 0f;
+                
+                if (!disponible) 
+                {
+                    disponible = true;
+                    Debug.Log("¡MEJORA DISPONIBLE! Presiona Q para consumir.");
+                    
+                    // La barra de carga se queda llena (100%)
+                    if (barraDeCarga != null)
+                    {
+                        barraDeCarga.fillAmount = 1f;
+                        barraDeCarga.gameObject.SetActive(true);
+                    }
+
+                    // Muestra el aviso instantáneamente y comienza la Corutina de 3 segundos
+                    if (avisoDisponibleUI != null)
+                    {
+                        StopAllCoroutines(); 
+                        StartCoroutine(MostrarAvisoPorTiempo(TIEMPO_VISIBILIDAD_AVISO)); 
+                    }
+                }
+            }
+        }
+        // Ocultar la barra si espera es 0 y NO está disponible (listo para reiniciar)
+        else if (barraDeCarga != null && !disponible && barraDeCarga.gameObject.activeSelf) 
+        {
+            barraDeCarga.gameObject.SetActive(false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Q) && jugadorEstaDentro)
+        {
+            ActivarOUsarMejora();
+        }
+    }
+
+
+    // --- 2. Lógica de Activación/Uso y Reinicio ---
+
+    private void ActivarOUsarMejora()
+    {
+        // 1. Estado de Bloqueo (Cronómetro activo)
+        if (espera > 0f)
+        {
+            Debug.Log("¡ESPERAAAAA! El cronómetro sigue corriendo.");
+            
+            // Si el cronómetro está corriendo, oculta el aviso inmediatamente
+            if (avisoDisponibleUI != null)
+            {
+                StopAllCoroutines();
+                avisoDisponibleUI.SetActive(false);
+            }
+            return;
+        }
+
+        // --- Estado cuando 'espera' es 0 ---
+        
+        // 2. Estado de Consumo (Mejora disponible)
+        if (disponible)
+        {
+            AplicarCuracion(atributosJugadorActual); 
+            disponible = false;
+            
+            // Ocultar el aviso
+            if (avisoDisponibleUI != null)
+            {
+                StopAllCoroutines();
+                avisoDisponibleUI.SetActive(false);
+            }
+            
+            // Ocultar y vaciar la barra al consumir
+            if (barraDeCarga != null)
+            {
+                barraDeCarga.fillAmount = 0f;
+                barraDeCarga.gameObject.SetActive(false);
+            }
+            
+            Debug.Log("Mejora consumida. Presiona Q de nuevo para reiniciar el cronómetro.");
+        }
+        
+        // 3. Estado de Reinicio/Activación (No disponible y espera = 0)
+        else 
+        {
+            espera = tiempoMaximoEspera;
+            disponible = false;
+            
+            // Mostrar la barra para iniciar la carga
+            if (barraDeCarga != null)
+            {
+                barraDeCarga.fillAmount = 0f;
+                barraDeCarga.gameObject.SetActive(true);
+            }
+
+            Debug.Log($"Cronómetro de mejora iniciado/reiniciado. {tiempoMaximoEspera} segundos para estar disponible.");
+        }
+    }
+
+    // --- 3. Corutina para Mostrar/Ocultar el aviso ---
+    
+    IEnumerator MostrarAvisoPorTiempo(float duracion)
+    {
+        if (avisoDisponibleUI != null)
+        {
+            // 1. Aparece instantáneamente
+            avisoDisponibleUI.SetActive(true);
+            
+            // 2. Espera el tiempo especificado
+            yield return new WaitForSeconds(duracion);
+            
+            // 3. Desaparece instantáneamente (solo si la mejora no fue consumida)
+            if (avisoDisponibleUI != null && disponible)
+            {
+                avisoDisponibleUI.SetActive(false);
+            }
+        }
+    }
+
+    // --- 4. Métodos de Colisión y Curación ---
+    
     private void OnTriggerEnter(Collider other)
     {
-        // 1. Verifica si el objeto que atravesó tiene el Tag "Player"
         if (other.gameObject.CompareTag(PlayerTag))
         {
-            // 2. Intenta obtener el script AtributosPersonaje del objeto Player
-            AtributosPersonaje atributosJugador = other.gameObject.GetComponent<AtributosPersonaje>();
+            atributosJugadorActual = other.gameObject.GetComponent<AtributosPersonaje>();
+            if (atributosJugadorActual != null)
+            {
+                jugadorEstaDentro = true;
+            }
+        }
+    }
 
-            if (atributosJugador != null)
-            {
-                // 3. Aplica la curación
-                AplicarCuracion(atributosJugador);
-            }
-            else
-            {
-                Debug.LogWarning("El Player colisionó con la curación pero NO tiene el componente AtributosPersonaje.");
-            }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag(PlayerTag))
+        {
+            jugadorEstaDentro = false;
+            atributosJugadorActual = null;
         }
     }
 
     private void AplicarCuracion(AtributosPersonaje target)
     {
-        // Llama al método público en el script AtributosPersonaje
-        target.RecibirCuracion(cantidadDeCuracion);
-        
-        Debug.Log($"El jugador se curó en {cantidadDeCuracion} puntos.");
-
-        // 4. Desaparecer el objeto de curación
-        Destroy(gameObject);
+        if (target != null)
+        {
+            target.RecibirCuracion(cantidadDeCuracion);
+        }
     }
 }
