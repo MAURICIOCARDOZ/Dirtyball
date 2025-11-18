@@ -900,11 +900,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AtributosEnemigoBase
   VidaActual: 100
   VidaMaxima: 100
-  Velocidad: 200
   Salto: 5
   "da\xF1o": 1
   cooldown: 1
-  rango: 1
+  animator: {fileID: 0}
+  armas: []
+  PosicionLocalArma: {x: 0.5, y: 1, z: 0.2}
+  HandSocket: {fileID: 0}
 --- !u!54 &138814619
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1507,11 +1509,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AtributosEnemigoBase
   VidaActual: 100
   VidaMaxima: 100
-  Velocidad: 200
   Salto: 5
   "da\xF1o": 1
   cooldown: 1
-  rango: 1
+  animator: {fileID: 0}
+  armas: []
+  PosicionLocalArma: {x: 0.5, y: 1, z: 0.2}
+  HandSocket: {fileID: 0}
 --- !u!1 &255965507 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6745077159910520393, guid: bd00894f936f56448a0346a3a3040ca2, type: 3}
@@ -3762,7 +3766,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5933deadd27e0e345ae11357dedb23cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScreenFader
-  fadeDuration: 0.75
 --- !u!225 &493760510
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -4314,7 +4317,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpawnEnemigos
   enemy: {fileID: 1741640633}
   enemiesToSpawn: 20
-  xzLimites: 45
 --- !u!4 &555005044
 Transform:
   m_ObjectHideFlags: 0
@@ -5414,11 +5416,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AtributosEnemigoBase
   VidaActual: 100
   VidaMaxima: 100
-  Velocidad: 200
   Salto: 5
   "da\xF1o": 1
   cooldown: 1
-  rango: 1
+  animator: {fileID: 0}
+  armas: []
+  PosicionLocalArma: {x: 0.5, y: 1, z: 0.2}
+  HandSocket: {fileID: 0}
 --- !u!54 &652759378
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7433,11 +7437,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AtributosEnemigoBase
   VidaActual: 100
   VidaMaxima: 100
-  Velocidad: 50
   Salto: 5
   "da\xF1o": 1
   cooldown: 1
-  rango: 1
+  animator: {fileID: 0}
+  armas: []
+  PosicionLocalArma: {x: 0.5, y: 1, z: 0.2}
+  HandSocket: {fileID: 0}
 --- !u!1 &1024042183 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -316612899477943360, guid: bd00894f936f56448a0346a3a3040ca2, type: 3}
@@ -9450,11 +9456,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AtributosEnemigoBase
   VidaActual: 100
   VidaMaxima: 100
-  Velocidad: 200
   Salto: 5
   "da\xF1o": 1
   cooldown: 1
-  rango: 1
+  animator: {fileID: 0}
+  armas: []
+  PosicionLocalArma: {x: 0.5, y: 1, z: 0.2}
+  HandSocket: {fileID: 0}
 --- !u!54 &1321687331
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10305,9 +10313,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07b817fb424d1f248916bc1ca4161231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Teleporter
-  targetPosition: {x: 86.21, y: 55.5, z: 181.4}
-  screenFader: {fileID: 493760509}
-  playerTag: Player
 --- !u!65 &1401138045
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -10476,11 +10481,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AtributosEnemigoBase
   VidaActual: 100
   VidaMaxima: 100
-  Velocidad: 200
   Salto: 5
   "da\xF1o": 1
   cooldown: 1
-  rango: 1
+  animator: {fileID: 0}
+  armas: []
+  PosicionLocalArma: {x: 0.5, y: 1, z: 0.2}
+  HandSocket: {fileID: 0}
 --- !u!54 &1430419939
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10920,11 +10927,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AtributosEnemigoBase
   VidaActual: 100
   VidaMaxima: 100
-  Velocidad: 200
   Salto: 5
   "da\xF1o": 1
   cooldown: 1
-  rango: 1
+  animator: {fileID: 0}
+  armas: []
+  PosicionLocalArma: {x: 0.5, y: 1, z: 0.2}
+  HandSocket: {fileID: 0}
 --- !u!54 &1503041748
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -11638,11 +11647,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AtributosEnemigoBase
   VidaActual: 100
   VidaMaxima: 100
-  Velocidad: 200
   Salto: 5
   "da\xF1o": 1
   cooldown: 1
-  rango: 1
+  animator: {fileID: 0}
+  armas: []
+  PosicionLocalArma: {x: 0.5, y: 1, z: 0.2}
+  HandSocket: {fileID: 0}
 --- !u!54 &1610220271
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12591,11 +12602,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AtributosEnemigoBase
   VidaActual: 100
   VidaMaxima: 100
-  Velocidad: 50
   Salto: 5
   "da\xF1o": 1
   cooldown: 1
-  rango: 1
+  animator: {fileID: 0}
+  armas: []
+  PosicionLocalArma: {x: 0.5, y: 1, z: 0.2}
+  HandSocket: {fileID: 0}
 --- !u!54 &1741640637
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -14737,7 +14750,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -99.6, y: 95.1}
+  m_AnchoredPosition: {x: -99.6001, y: 95.099976}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1996255340
@@ -15029,11 +15042,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AtributosEnemigoBase
   VidaActual: 100
   VidaMaxima: 100
-  Velocidad: 50
   Salto: 5
   "da\xF1o": 50
   cooldown: 1
-  rango: 1
+  animator: {fileID: 0}
+  armas: []
+  PosicionLocalArma: {x: 0.5, y: 1, z: 0.2}
+  HandSocket: {fileID: 0}
 --- !u!114 &2067708251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15048,11 +15063,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AtributosEnemigoBase
   VidaActual: 100
   VidaMaxima: 100
-  Velocidad: 50
   Salto: 5
   "da\xF1o": 50
   cooldown: 1
-  rango: 1
+  animator: {fileID: 0}
+  armas: []
+  PosicionLocalArma: {x: 0.5, y: 1, z: 0.2}
+  HandSocket: {fileID: 0}
 --- !u!1 &2081116455 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2452898191284445974, guid: bd00894f936f56448a0346a3a3040ca2, type: 3}
@@ -15398,11 +15415,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AtributosEnemigoBase
   VidaActual: 100
   VidaMaxima: 100
-  Velocidad: 200
   Salto: 5
   "da\xF1o": 1
   cooldown: 1
-  rango: 1
+  animator: {fileID: 0}
+  armas: []
+  PosicionLocalArma: {x: 0.5, y: 1, z: 0.2}
+  HandSocket: {fileID: 0}
 --- !u!54 &2140194689
 Rigidbody:
   m_ObjectHideFlags: 0

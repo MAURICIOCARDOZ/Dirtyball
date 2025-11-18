@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-/*
+
 public class Teleporter : MonoBehaviour
 {
     [Header("1. Destino y Referencias")]
@@ -24,7 +24,7 @@ public class Teleporter : MonoBehaviour
         if (screenFader == null)
         {
             // Busca el fader si no se asignó en el Inspector.
-            screenFader = FindObjectOfType<ScreenFader>();
+            screenFader = FindFirstObjectByType<ScreenFader>();
             if (screenFader == null)
             {
                 Debug.LogError("No se encontró ScreenFader en la escena. El teletransporte no tendrá efecto de fundido.");
@@ -72,4 +72,4 @@ public class Teleporter : MonoBehaviour
 
         isTeleporting = false;
     }
-}*/
+}

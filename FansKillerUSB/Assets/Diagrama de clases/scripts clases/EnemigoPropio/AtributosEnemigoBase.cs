@@ -1,6 +1,6 @@
 using System;
 using UnityEngine;
-
+//MANEJA LOS ATRIBUTOS DEL ENEMIGO BASE Y REGISTRA EN EL MANEJO DE BOSS
 public class AtributosEnemigoBase : MonoBehaviour
 {
     public int VidaActual = 100;
@@ -22,6 +22,11 @@ public class AtributosEnemigoBase : MonoBehaviour
     void Start()
     {
         VidaActual = VidaMaxima;
+
+        if (ManejoBoss.Instance != null)
+        {
+            ManejoBoss.Instance.RegistrarEnemigo();
+        }
 
 
         //Setear el indice del arma
@@ -57,6 +62,7 @@ public class AtributosEnemigoBase : MonoBehaviour
         Debug.Log(gameObject.name + " ha muerto.");
         // Destruye el objeto al que está adjunto este script
         Destroy(gameObject);
+        ManejoBoss.Instance.RestarEnemigoMuerto();
 
     }
 
