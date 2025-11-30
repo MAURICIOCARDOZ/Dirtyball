@@ -1103,7 +1103,7 @@ SpriteRenderer:
   m_Size: {x: 5.81, y: 5.81}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &109474515
@@ -1286,11 +1286,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AtributosEnemigoBase
   VidaActual: 100
   VidaMaxima: 100
-  Velocidad: 200
   Salto: 5
   "da\xF1o": 1
   cooldown: 1
-  rango: 1
+  animator: {fileID: 0}
+  armas: []
+  PosicionLocalArma: {x: 0.5, y: 1, z: 0.2}
+  HandSocket: {fileID: 0}
 --- !u!54 &138814619
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1595,7 +1597,7 @@ SpriteRenderer:
   m_Size: {x: 5.81, y: 5.81}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &198635633
@@ -2287,11 +2289,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AtributosEnemigoBase
   VidaActual: 100
   VidaMaxima: 100
-  Velocidad: 200
   Salto: 5
   "da\xF1o": 1
   cooldown: 1
-  rango: 1
+  animator: {fileID: 0}
+  armas: []
+  PosicionLocalArma: {x: 0.5, y: 1, z: 0.2}
+  HandSocket: {fileID: 0}
 --- !u!1 &255965507 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -6745077159910520393, guid: bd00894f936f56448a0346a3a3040ca2, type: 3}
@@ -4973,8 +4977,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5933deadd27e0e345ae11357dedb23cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScreenFader
-  fadeDuration: 0.75
-  holdDuration: 1.25
+  fadeDuration: 0.5
+  holdDuration: 1
 --- !u!225 &493760510
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -5629,7 +5633,6 @@ MonoBehaviour:
   objetoCuchilloParaActivar: {fileID: 1017944286}
   avisoDisponibleUI: {fileID: 200678424}
   avisoCuchilloDesbloqueadoUI: {fileID: 502264493}
-  avisoPanchoActivoUI: {fileID: 1256949266}
   barraDeCarga: {fileID: 1713293764}
 --- !u!4 &549841656
 Transform:
@@ -5716,7 +5719,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpawnEnemigos
   enemy: {fileID: 1741640633}
   enemiesToSpawn: 20
-  xzLimites: 45
 --- !u!4 &555005044
 Transform:
   m_ObjectHideFlags: 0
@@ -6303,8 +6305,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Mejora
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: bab18405a97137344b7ce4bc6f68bd81, type: 2}
-  m_sharedMaterial: {fileID: 109777706018821025, guid: bab18405a97137344b7ce4bc6f68bd81, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6439,8 +6441,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Arma
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: bab18405a97137344b7ce4bc6f68bd81, type: 2}
-  m_sharedMaterial: {fileID: 109777706018821025, guid: bab18405a97137344b7ce4bc6f68bd81, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -6957,11 +6959,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AtributosEnemigoBase
   VidaActual: 100
   VidaMaxima: 100
-  Velocidad: 200
   Salto: 5
   "da\xF1o": 1
   cooldown: 1
-  rango: 1
+  animator: {fileID: 0}
+  armas: []
+  PosicionLocalArma: {x: 0.5, y: 1, z: 0.2}
+  HandSocket: {fileID: 0}
 --- !u!54 &652759378
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -7763,118 +7767,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -7961200626862478435, guid: bd00894f936f56448a0346a3a3040ca2, type: 3}
---- !u!1 &718149414
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 718149418}
-  - component: {fileID: 718149417}
-  - component: {fileID: 718149416}
-  - component: {fileID: 718149415}
-  m_Layer: 0
-  m_Name: PISOPARCHE
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!64 &718149415
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 718149414}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &718149416
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 718149414}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &718149417
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 718149414}
-  m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &718149418
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 718149414}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 104.16226, y: 1.05, z: -61.496536}
-  m_LocalScale: {x: 20, y: 5, z: 15}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &727877010 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1852570966764200802, guid: bd00894f936f56448a0346a3a3040ca2, type: 3}
@@ -9361,11 +9253,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AtributosEnemigoBase
   VidaActual: 100
   VidaMaxima: 100
-  Velocidad: 50
   Salto: 5
   "da\xF1o": 1
   cooldown: 1
-  rango: 1
+  animator: {fileID: 0}
+  armas: []
+  PosicionLocalArma: {x: 0.5, y: 1, z: 0.2}
+  HandSocket: {fileID: 0}
 --- !u!1 &1024042183 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -316612899477943360, guid: bd00894f936f56448a0346a3a3040ca2, type: 3}
@@ -11693,8 +11587,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Comida
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: bab18405a97137344b7ce4bc6f68bd81, type: 2}
-  m_sharedMaterial: {fileID: 109777706018821025, guid: bab18405a97137344b7ce4bc6f68bd81, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -12043,11 +11937,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AtributosEnemigoBase
   VidaActual: 100
   VidaMaxima: 100
-  Velocidad: 200
   Salto: 5
   "da\xF1o": 1
   cooldown: 1
-  rango: 1
+  animator: {fileID: 0}
+  armas: []
+  PosicionLocalArma: {x: 0.5, y: 1, z: 0.2}
+  HandSocket: {fileID: 0}
 --- !u!54 &1321687331
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -12979,11 +12875,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AtributosEnemigoBase
   VidaActual: 100
   VidaMaxima: 100
-  Velocidad: 200
   Salto: 5
   "da\xF1o": 1
   cooldown: 1
-  rango: 1
+  animator: {fileID: 0}
+  armas: []
+  PosicionLocalArma: {x: 0.5, y: 1, z: 0.2}
+  HandSocket: {fileID: 0}
 --- !u!54 &1430419939
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -13654,11 +13552,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AtributosEnemigoBase
   VidaActual: 100
   VidaMaxima: 100
-  Velocidad: 200
   Salto: 5
   "da\xF1o": 1
   cooldown: 1
-  rango: 1
+  animator: {fileID: 0}
+  armas: []
+  PosicionLocalArma: {x: 0.5, y: 1, z: 0.2}
+  HandSocket: {fileID: 0}
 --- !u!54 &1503041748
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -13881,7 +13781,6 @@ MonoBehaviour:
   rango: 1
   Arma: 0
   EstaAtacando: 0
-  TienePancho: 0
   barraDeVida: {fileID: 1134189032}
   controladorUIScript: {fileID: 555005045}
 --- !u!114 &1509835472
@@ -13905,7 +13804,6 @@ MonoBehaviour:
   rango: 1
   Arma: 0
   EstaAtacando: 0
-  TienePancho: 0
   barraDeVida: {fileID: 1134189032}
   controladorUIScript: {fileID: 0}
   damagePopUpGenerator: {fileID: 555005046}
@@ -14487,11 +14385,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AtributosEnemigoBase
   VidaActual: 100
   VidaMaxima: 100
-  Velocidad: 200
   Salto: 5
   "da\xF1o": 1
   cooldown: 1
-  rango: 1
+  animator: {fileID: 0}
+  armas: []
+  PosicionLocalArma: {x: 0.5, y: 1, z: 0.2}
+  HandSocket: {fileID: 0}
 --- !u!54 &1610220271
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -15553,11 +15453,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AtributosEnemigoBase
   VidaActual: 100
   VidaMaxima: 100
-  Velocidad: 50
   Salto: 5
   "da\xF1o": 1
   cooldown: 1
-  rango: 1
+  animator: {fileID: 0}
+  armas: []
+  PosicionLocalArma: {x: 0.5, y: 1, z: 0.2}
+  HandSocket: {fileID: 0}
 --- !u!54 &1741640637
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -18028,11 +17930,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07b817fb424d1f248916bc1ca4161231, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Teleporter
-  targetPosition: {x: -1215.33, y: -10.48, z: 155.11}
-  screenFader: {fileID: 493760509}
-  playerTag: Player
-  playerRigidbody: {fileID: 0}
-  interactionPrompt: {fileID: 0}
 --- !u!65 &1996738341
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -18627,11 +18524,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AtributosEnemigoBase
   VidaActual: 100
   VidaMaxima: 100
-  Velocidad: 50
   Salto: 5
   "da\xF1o": 50
   cooldown: 1
-  rango: 1
+  animator: {fileID: 0}
+  armas: []
+  PosicionLocalArma: {x: 0.5, y: 1, z: 0.2}
+  HandSocket: {fileID: 0}
 --- !u!114 &2067708251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18646,11 +18545,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AtributosEnemigoBase
   VidaActual: 100
   VidaMaxima: 100
-  Velocidad: 50
   Salto: 5
   "da\xF1o": 50
   cooldown: 1
-  rango: 1
+  animator: {fileID: 0}
+  armas: []
+  PosicionLocalArma: {x: 0.5, y: 1, z: 0.2}
+  HandSocket: {fileID: 0}
 --- !u!1 &2081116455 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2452898191284445974, guid: bd00894f936f56448a0346a3a3040ca2, type: 3}
@@ -19311,11 +19212,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AtributosEnemigoBase
   VidaActual: 100
   VidaMaxima: 100
-  Velocidad: 200
   Salto: 5
   "da\xF1o": 1
   cooldown: 1
-  rango: 1
+  animator: {fileID: 0}
+  armas: []
+  PosicionLocalArma: {x: 0.5, y: 1, z: 0.2}
+  HandSocket: {fileID: 0}
 --- !u!54 &2140194689
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -19849,7 +19752,8 @@ PrefabInstance:
       propertyPath: screenFader
       value: 
       objectReference: {fileID: 493760509}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4956541660364638942, guid: 832ad7579f956a04eb07820e5dcda6ac, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
@@ -19937,7 +19841,6 @@ SceneRoots:
   - {fileID: 8650507676691288990}
   - {fileID: 1089605071}
   - {fileID: 296694297}
-  - {fileID: 718149418}
   - {fileID: 549841656}
   - {fileID: 2735471848294826478}
   - {fileID: 198635633}
